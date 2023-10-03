@@ -8,8 +8,15 @@ function Header({ isLoggedIn }) {
   const location = useLocation();
   const rootPath = "/";
 
+  let headerClassName = "header";
+  if (location.pathname === '/profile') {
+    headerClassName = "header header_color-white";
+  } else if (location.pathname !== '/') {
+    headerClassName = "header header_color-almost-white";
+  }
+
   return (
-    <header className={location.pathname !== '/' ? "header header_color-white" : "header"}>
+    <header className={headerClassName}>
       <div className="header__container">
         <Link className="header__logo-link" to={rootPath}>
           <img className="header__logo" src={logo} alt="Логотип" />

@@ -5,8 +5,12 @@
   width: 100%;
 }
 
-.header_color-white {
+.header_color-almost-white {
   background-color: #FAFAFA;
+}
+
+.header_color-white {
+  background-color: #fff;
 }
 
 .header__container {
