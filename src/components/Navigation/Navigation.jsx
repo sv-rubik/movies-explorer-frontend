@@ -1,42 +1,37 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import manIcon from "../../images/man-icon.svg";
-import smallNavIcon from "../../images/small-nav-icon.svg";
+import './Navigation.css';
+import React, {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
+import NavPanelRegistered from "./NavPanelRegistered/NavPanelRegistered";
+import BurgerOpened from "./BurgerActive/BurgerOpened";
+import { useWindowSize } from "../../contexts/WindowSizeContext";
 
-function Navigation({ handelOpenSmallNav, isLoggedIn }) {
+function Navigation({ isLoggedIn }) {
+  const [burgerOpened, setBurgerOpened] = useState(false);
+  const handleMenu = () => {
+    setBurgerOpened(!burgerOpened);
+  };
+  const { isDesktop } = useWindowSize();
+
+  // Сброс открытого состояния бургерного меню
+  useEffect(() => {
+    if (isDesktop) {
+      setBurgerOpened(false);
+    }
+  }, [isDesktop]);
+
   return isLoggedIn ? (
-    <nav className="nav">
-      <ul className="nav__movies">
-        <li>
-          <NavLink className="nav__link nav__route nav__route_active" to="/movies">
-            Фильм
-          </NavLink>
-        </li>
-
-        <li>
-          <NavLink className="nav__link nav__route" to="/saved-movies">
-            Сохранённые фильмы
-          </NavLink>
-        </li>
-      </ul>
-
-      <Link to="/profile" className="nav__route nav__route-account">
-        <img className="nav__main-icon" src={manIcon} alt="Иконка человека"/>
-        Аккаунт
-      </Link>
-
-      <img className="nav__small-nav" src={smallNavIcon} onClick={handelOpenSmallNav}
-           alt="Иконка кнопки меню"
-      />
-    </nav>
+    <>
+      {isDesktop ? (
+        <NavPanelRegistered isDesktop={isDesktop} />
+      ) : (
+        <button className="burger-menu-btn" type="button" onClick={handleMenu}></button>
+      )}
+      {!isDesktop && <BurgerOpened burgerOpened={burgerOpened} onCloseBurger={handleMenu} />}
+    </>
   ) : (
-    <nav className="nav__default">
-      <Link className="nav__route" to="/signup" >
-        Регистрация
-      </Link>
-      <Link className="nav__route nav__route-btn" to="/signin" >
-        Войти
-      </Link>
+    <nav className="nav-default">
+      <Link className="nav-default__link" to="/register" >Регистрация</Link>
+      <Link className="nav-default__link nav-default__link-btn" to="/login" >Войти</Link>
     </nav>
   );
 }

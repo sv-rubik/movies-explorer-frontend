@@ -1,0 +1,69 @@
+.checkbox {
+  align-items: center;
+  border-left: 1px solid #cbcbcb;
+  display: flex;
+  min-height: 40px;
+  padding: 0 14px 0 29px;
+  margin: 0;
+}
+
+.checkbox__label {
+  position: relative;
+  display: inline-block;
+  width: 34px; /* Ширина переключателя */
+  height: 14px; /* Высота переключателя */
+}
+
+/* Стили для скрытого нативного чекбокса */
+.checkbox__input {
+  all: unset;
+}
+
+/* Слайдер */
+.checkbox__slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #EBEBEB; /* Цвет фона переключателя (неактивное состояние) */
+  border-radius: 20px;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.checkbox__input:checked + .checkbox__slider {
+  background-color: #2BE080; /* Цвет фона переключателя (активное состояние) */
+}
+
+/* Переключатель */
+.checkbox__slider:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+/* При нажатии на чекбокс изменяем положение слайдера */
+.checkbox__input:checked + .checkbox__slider:before {
+  transform: translateX(21px);
+}
+
+@media screen and (max-width: 768px) {
+  .checkbox {
+    padding: 0 14px 0 19px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .checkbox {
+    border-left: none;
+    padding: 0 13px 0 0;
+    margin: 0;
+  }
+}

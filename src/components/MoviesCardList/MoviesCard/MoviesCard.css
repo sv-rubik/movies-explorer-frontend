@@ -1,0 +1,106 @@
+.element {
+  max-width: 270px;
+  max-height: 218px;
+  border-radius: 10px;
+  background-color: #fff;
+  line-height: 0;
+  position: relative;
+  box-shadow: 0 16px 24px 0 rgba(0, 0, 0, 0.05);
+}
+
+.element__image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+}
+
+.element__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 14px 12px;
+}
+
+.element__duration {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  align-items: center;
+  color: #a0a0a0;
+  margin: 0;
+}
+
+.element__title {
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 500;
+  color: #000;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 0 10px 0;
+}
+
+.element__likes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+}
+
+.element__like {
+  border: none;
+  min-width: 25px;
+  min-height: 25px;
+  background: url("../../../images/saved-inactive.svg") no-repeat;
+  background-size: 25px 25px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.element__like:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.element__like_active {
+  background: url("../../../images/saved-active.svg") no-repeat center;
+  background-size: cover;
+  opacity: 1;
+}
+
+.element__trash {
+  border: none;
+  background: url("../../../images/delete-movie.svg") no-repeat center;
+  cursor: pointer;
+  min-width: 16px;
+  min-height: 16px;
+  background-size: cover;
+  transition: all 0.5s ease-in-out;
+  padding: 0;
+  margin: 0;
+}
+
+.element__trash:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 990px) {
+  .element {
+    max-width: 339px;
+    max-height: 257px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .element {
+    max-width: 300px;
+    max-height: 235px;
+  }
+}

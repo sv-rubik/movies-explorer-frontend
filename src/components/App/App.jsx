@@ -1,109 +1,75 @@
-// import React, {useEffect, useState} from 'react'
-// import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import './App.css';
+import React, {useState} from 'react'
+import { Route, Routes, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Movies from '../Movies/Movies';
+import SavedMovies from "../SavedMovies/SavedMovies";
+import ErrorPage from "../ErrorPage/ErrorPage";
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
-// const [currentUser, setCurrentUser] = useState({}) // context variable
-const currentUser = {} // временная заглушка TODO
-const isLoggedIn = true // временная заглушка TODO
-
-// function handleUpdateUser (profileInputsData) {
-//   api.sendUserData({name: profileInputsData.name, about: profileInputsData.about})
-//     .then((res) => {
-//       setCurrentUser(res)
-//       closeAllPopups()
-//     })
-//     .catch((err) => {console.log("There is an error while updating profile:", err) })
-// }
+import { WindowSizeProvider } from "../../contexts/WindowSizeContext";
+import Profile from "../Profile/Profile";
+import Register from "../Register/Register";
+import Login from "../Login/Login";
 
 // <BrowserRouter> imported in index.js
 function App() {
+  const [currentUser, setCurrentUser] = useState({
+    name: 'Виталий',
+    email: 'pochta@yandex.ru',
+    password: ''
+  });
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // TODO временная заглушка
+  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation(); // Получаем текущий маршрут
+  const navigate = useNavigate();
+
+// TODO временный прелоадер
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 3000);
+
+  const shouldShowFooter = () => {
+    // Если текущий маршрут равен profile, register, login, то не показываем Footer
+    return !['/profile', '/register', '/login'].includes(location.pathname);
+  };
+
+  const shouldShowHeader = () => {
+    // Если текущий маршрут равен register, login, то не показываем Header
+    return !['/register', '/login'].includes(location.pathname);
+  };
+
+  const shouldShowHeaderFooter = () => {
+    // Если текущий маршрут равен ErrorPage, то не показываем Header и Footer
+    return location.pathname !== '/error';
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate("/", { replace: true });
+  };
+
   return (
     <div className="App">
-      {/* Пока проверяется токен, покажи мне прикольный лоудер, а не мелькай главную страницу */}
-      {/*{isLoading ? (*/}
-      {/*  <PageLoader />*/}
-      {/*) : (*/}
         <CurrentUserContext.Provider value={ currentUser }> {/*  value to provide from App to below components */}
-          {/*{headerPaths.includes(location.pathname) && (*/}
-          {/*  <Header isLoggedIn={isLoggedIn} />*/}
-          {/*)}*/}
-          <Header isLoggedIn={isLoggedIn} />
-          <Main />
-          {/*<main>*/}
-          {/*  <Routes>*/}
-          {/*    <Route path="/" element={<Main />} />*/}
-
-            {/*  <Route*/}
-            {/*    path="/signup"*/}
-            {/*    element={*/}
-            {/*      <Register*/}
-            {/*        onRegister={handleRegister}*/}
-            {/*        isLoggedIn={isLoggedIn}*/}
-            {/*        apiErrors={apiErrors}*/}
-            {/*      />*/}
-            {/*    }*/}
-            {/*  />*/}
-
-            {/*  <Route*/}
-            {/*    path="/signin"*/}
-            {/*    element={*/}
-            {/*      <Login*/}
-            {/*        onLogin={handleLogin}*/}
-            {/*        isLoggedIn={isLoggedIn}*/}
-            {/*        apiErrors={apiErrors}*/}
-            {/*      />*/}
-            {/*    }*/}
-            {/*  />*/}
-
-            {/*  <Route*/}
-            {/*    path="/movies"*/}
-            {/*    element={*/}
-            {/*      <ProtectedRoute*/}
-            {/*        element={Movies}*/}
-            {/*        isLoggedIn={isLoggedIn}*/}
-            {/*        movies={movies}*/}
-            {/*        savedMovies={savedMovies}*/}
-            {/*        onLikeMovie={handleLikeMovie}*/}
-            {/*        apiErrors={apiErrors}*/}
-            {/*      />*/}
-            {/*    }*/}
-            {/*  />*/}
-
-            {/*  <Route*/}
-            {/*    path="/saved-movies"*/}
-            {/*    element={*/}
-            {/*      <ProtectedRoute*/}
-            {/*        element={SavedMovies}*/}
-            {/*        savedMovies={savedMovies}*/}
-            {/*        onDeleteMovie={handleDeleteMovie}*/}
-            {/*        isLoggedIn={isLoggedIn}*/}
-            {/*      />*/}
-            {/*    }*/}
-            {/*  />*/}
-
-            {/*  <Route*/}
-            {/*    path="/profile"*/}
-            {/*    element={*/}
-            {/*      <ProtectedRoute*/}
-            {/*        element={Profile}*/}
-            {/*        isLoggedIn={isLoggedIn}*/}
-            {/*        apiErrors={apiErrors}*/}
-            {/*        isOK={isOK}*/}
-            {/*        onSignOut={handleSignOut}*/}
-            {/*        onUpdateUser={handleUpdateUser}*/}
-            {/*      />*/}
-            {/*    }*/}
-            {/*  />*/}
-
-            {/*  <Route path="*" element={<NotFound isLoggedIn={isLoggedIn} />} />*/}
-            {/*</Routes>*/}
-          {/*</main>*/}
-          {/*{footerPaths.includes(location.pathname) && <Footer />}*/}
-          <Footer />
+          <WindowSizeProvider>
+            {shouldShowHeaderFooter() && shouldShowHeader() && <Header isLoggedIn={isLoggedIn} />}
+            <main>
+              <Routes>
+                <Route path="/" element={<Main />} />
+                <Route path="/movies" element={<Movies isLoading={isLoading}/>} />
+                <Route path="/saved-movies" element={<SavedMovies isLoading={isLoading}/>} />
+                <Route path="/profile" element={<Profile handleLogOut={handleLogout}/>} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/error" element={<ErrorPage />} />
+                <Route path="*" element={<Navigate replace to="/error" />} />
+              </Routes>
+            </main>
+            {shouldShowHeaderFooter() && shouldShowFooter() && <Footer />}
+          </WindowSizeProvider>
         </CurrentUserContext.Provider>
-      {/*)}*/}
     </div>
   );
 }
