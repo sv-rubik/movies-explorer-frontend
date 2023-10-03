@@ -28,8 +28,7 @@
   justify-content: center;
   align-items: center;
 }
-.movies_btn-add {
-  cursor: pointer;
+.movies__btn-add {
   padding: 0;
   width: 320px;
   height: 36px;
@@ -40,9 +39,15 @@
   font-size: 12px;
   line-height: 15px;
   text-align: center;
+  transition: all 0.1s linear;
+  cursor: pointer;
 }
 
-.movies_btn-add_inactive {
+.movies__btn-add:hover {
+  opacity: 0.8;
+}
+
+.movies__btn-add_inactive {
   visibility: hidden;
 }
 

@@ -30,8 +30,8 @@ function Navigation({ isLoggedIn }) {
     </>
   ) : (
     <nav className="nav-default">
-      <Link className="nav-default__link" to="/register" >Регистрация</Link>
-      <Link className="nav-default__link nav-default__link-btn" to="/login" >Войти</Link>
+      <Link className="nav-default__link" to="/signup" >Регистрация</Link>
+      <Link className="nav-default__link nav-default__link-btn" to="/signin" >Войти</Link>
     </nav>
   );
 }

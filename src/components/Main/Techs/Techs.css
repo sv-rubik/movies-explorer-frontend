@@ -62,7 +62,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .profile__container {
+  .techs__container {
     padding: 90px 50px;
   }
 
@@ -90,7 +90,7 @@
 }
 
 @media screen and (max-width: 450px) {
-  .profile__container {
+  .techs__container {
     padding: 70px 18px;
   }
 

@@ -43,6 +43,11 @@
   border: none;
   background: url(../../../images/close-btn.svg) no-repeat center;
   cursor: pointer;
+  transition: all 0.1s linear;
+}
+
+.burger__btn-close:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 450px) {

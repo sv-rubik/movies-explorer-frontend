@@ -16,7 +16,7 @@ function SearchForm() {
         </button>
         <div className="search__checkbox-container">
           <Checkbox />
-          <p className="search-form__shorts">Короткометражки</p>
+          <p className="search__shorts">Короткометражки</p>
         </div>
       </form>
     </section>

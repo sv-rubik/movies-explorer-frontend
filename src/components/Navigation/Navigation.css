@@ -40,6 +40,7 @@
   border: none;
   background: no-repeat center url(../../images/burger-icon.svg);
   cursor: pointer;
+  transition: all 0.1s linear;
 }
 
 .burger-menu-btn:hover {

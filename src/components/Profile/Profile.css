@@ -51,6 +51,10 @@
   top: 29px;
 }
 
+.profile__label:focus-within::after {
+  border-bottom: 1px solid #3456F3;
+}
+
 .profile__input {
   font-size: 11px;
   line-height: 13px;
@@ -130,7 +134,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 650px) {
   .profile__container {
     max-width: 260px;
     padding: 70px 0 40px;

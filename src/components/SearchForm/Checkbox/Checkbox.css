@@ -12,7 +12,13 @@
   display: inline-block;
   width: 34px; /* Ширина переключателя */
   height: 14px; /* Высота переключателя */
+  transition: all 0.1s linear;
 }
+
+.checkbox__label:hover {
+  opacity: 0.8;
+}
+
 
 /* Стили для скрытого нативного чекбокса */
 .checkbox__input {

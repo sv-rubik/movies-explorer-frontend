@@ -2,6 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   background-color: #DDDEE3;
+  width: 100%;
 }
 
 .header_color-white {
@@ -17,6 +18,11 @@
 
 .header__logo-link {
   height: 38px;
+  transition: all 0.3s linear;
+}
+
+.header__logo-link:hover {
+  opacity: 0.8;
 }
 
 .header__logo {

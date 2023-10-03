@@ -51,12 +51,19 @@
   font-weight: 500;
   color: #000000;
   margin: 99px 0 0 0;
+  transition: all 0.1s linear;
+  cursor: pointer;
+}
+
+.student__link:hover {
+  opacity: 0.8;
 }
 
 .student__photo {
-  width: 270px;
-  height: 327px;
+  max-width: 270px;
+  max-height: 327px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 768px) {
@@ -93,7 +100,7 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 650px) {
   .student__container {
     padding: 70px 18px;
   }
@@ -133,7 +140,7 @@
   }
 
   .student__photo {
-    width: 292px;
-    height: 352px;
+    min-width: 292px;
+    min-height: 352px;
   }
 }

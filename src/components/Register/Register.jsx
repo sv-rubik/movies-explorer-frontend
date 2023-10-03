@@ -45,7 +45,7 @@ function Register() {
         <Link className="register__logo-link" to="/">
           <img className="register__logo" src={logo} alt="Логотип" />
         </Link>
-        <h2 className="register__title">Добро пожаловать!</h2>
+        <h1 className="register__title">Добро пожаловать!</h1>
         <form className="register__form" name="profile">
           <label className="register__label">Имя
             <input className="register__input" placeholder="Ваше имя" name="name" type="text"
@@ -72,7 +72,7 @@ function Register() {
             </button>
             <div className="register__bottom-container">
               <p className="register__bottom-container-text">Уже зарегистрированы?</p>
-              <Link className="register__btn register__btn_link" to="/login" >
+              <Link className="register__btn register__btn_link" to="/signin" >
                 Войти
               </Link>
             </div>

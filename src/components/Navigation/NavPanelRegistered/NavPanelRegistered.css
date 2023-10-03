@@ -25,6 +25,7 @@
   color: #000;
   transition: all 0.1s linear;
   position: relative;
+  cursor: pointer;
 }
 
 .nav__link_active::after {

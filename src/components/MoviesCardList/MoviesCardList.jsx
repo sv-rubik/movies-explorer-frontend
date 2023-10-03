@@ -23,7 +23,7 @@ function MoviesCardList({isLoading}) {
             : generateMoviesList()}
         </ul>
         <div className='movies__btn-container'>
-          <button className="movies_btn-add" type='button'>
+          <button className="movies__btn-add" type='button'>
             Ещё
           </button>
         </div>

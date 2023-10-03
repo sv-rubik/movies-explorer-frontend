@@ -36,6 +36,7 @@
   line-height: 20px;
   font-weight: 400;
   border: none;
+  outline: none;
   background: url('../../images/find-grey.svg') no-repeat left center;
   padding: 10px 0 10px 32px;
   margin: 0 10px 0 0;
@@ -61,7 +62,7 @@
   justify-content: center;
 }
 
-.search-form__shorts {
+.search__shorts {
   font-size: 13px;
   line-height: 18px;
   font-weight: 400;
@@ -109,10 +110,6 @@
     margin: 0;
   }
 
-
-
-
-
   .search__checkbox-container {
     position: absolute;
     top: 106px;
@@ -120,7 +117,7 @@
     transform: translateX(-50%);
   }
 
-  .search-form__shorts {
+  .search__shorts {
     font-size: 11px;
     line-height: 18px;
   }

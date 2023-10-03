@@ -16,6 +16,11 @@
 .register__logo-link {
   height: 38px;
   align-self: flex-start;
+  transition: all 0.3s linear;
+}
+
+.register__logo-link:hover {
+  opacity: 0.8;
 }
 
 .register__logo {

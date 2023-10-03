@@ -32,12 +32,12 @@ function App() {
 
   const shouldShowFooter = () => {
     // Если текущий маршрут равен profile, register, login, то не показываем Footer
-    return !['/profile', '/register', '/login'].includes(location.pathname);
+    return !['/profile', '/signup', '/signin'].includes(location.pathname);
   };
 
   const shouldShowHeader = () => {
     // Если текущий маршрут равен register, login, то не показываем Header
-    return !['/register', '/login'].includes(location.pathname);
+    return !['/signup', '/signin'].includes(location.pathname);
   };
 
   const shouldShowHeaderFooter = () => {
@@ -55,14 +55,14 @@ function App() {
         <CurrentUserContext.Provider value={ currentUser }> {/*  value to provide from App to below components */}
           <WindowSizeProvider>
             {shouldShowHeaderFooter() && shouldShowHeader() && <Header isLoggedIn={isLoggedIn} />}
-            <main>
+            <main className="main">
               <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path="/movies" element={<Movies isLoading={isLoading}/>} />
                 <Route path="/saved-movies" element={<SavedMovies isLoading={isLoading}/>} />
                 <Route path="/profile" element={<Profile handleLogOut={handleLogout}/>} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/signin" element={<Login />} /> {/*login*/}
+                <Route path="/signup" element={<Register />} /> {/*register*/}
                 <Route path="/error" element={<ErrorPage />} />
                 <Route path="*" element={<Navigate replace to="/error" />} />
               </Routes>

@@ -38,7 +38,7 @@ function Login() {
         <Link className="register__logo-link" to="/">
           <img className="register__logo" src={logo} alt="Логотип" />
         </Link>
-        <h2 className="register__title">Рады видеть!</h2>
+        <h1 className="register__title">Рады видеть!</h1>
         <form className="register__form" name="profile">
           <label className="register__label">E-mail
             <input className="register__input" placeholder={currentUser.email} name="email" type="email" required
@@ -60,7 +60,7 @@ function Login() {
             </button>
             <div className="register__bottom-container">
               <p className="register__bottom-container-text">Еще не зарегистрированы?</p>
-              <Link className="register__btn register__btn_link" to="/register" >
+              <Link className="register__btn register__btn_link" to="/signup" >
                 Регистрация
               </Link>
             </div>

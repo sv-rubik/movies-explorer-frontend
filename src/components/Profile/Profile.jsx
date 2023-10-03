@@ -14,16 +14,16 @@ function Profile({ handleLogOut }) {
   return (
     <section className="profile">
       <div className="profile__container" >
-        <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+        <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         <form className="profile__form" name="profile">
           <label className="profile__label">Имя
-            <input className="profile__input" value={currentUser.name} name="name" type="text"
+            <input className="profile__input" value={currentUser.name} placeholder="Имя" name="name" type="text"
                    minLength={2} maxLength={30} required onFocus={handleBtnEditClick}/>
           </label>
           <span className="profile__input-error">{isError && errorText}</span>
           <label className="profile__label">E-mail
-            <input className="profile__input" value={currentUser.email} name="email" type="email" required
-                   onFocus={handleBtnEditClick}/>
+            <input className="profile__input" value={currentUser.email} placeholder="Email" name="email"
+                   type="email" required onFocus={handleBtnEditClick}/>
           </label>
           <span className="profile__input-error">{isError && errorText}</span>
 
