@@ -1,0 +1,128 @@
+.about-project {
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: #fafafa;
+}
+
+.about-project__container {
+  padding: 110px 70px;
+}
+
+.about-project__list {
+  list-style-type: none;
+  display: flex;
+  gap: 40px;
+  padding: 70px 0 110px 0;
+  margin: 0;
+}
+
+.about-project__list-item {
+  max-width: 550px;
+}
+
+.about-project__subtitle {
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.8px;
+  font-weight: 400;
+  margin: 0;
+}
+
+.about-project__text {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  margin: 26px 0 0 0;
+}
+
+.about-project__duration {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 14px 0;
+}
+.about-project__duration-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  height: 36px;
+  background-color: #F2F2F2;
+  margin: 0;
+}
+.about-project__duration-line_progress {
+  background: #3456F3;
+  color: #fff;
+}
+.about-project__duration-name {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #A0A0A0;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project__container {
+    padding: 90px 50px;
+  }
+
+  .about-project__list {
+    gap: 30px;
+    padding: 70px 0 93px 0;
+  }
+
+  .about-project__text {
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    margin: 22px 0 0 0;
+  }
+
+  .about-project__duration-line {
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .about-project__container {
+    padding: 70px 18px;
+  }
+
+  .about-project__list {
+    flex-direction: column;
+    gap: 56px;
+    padding: 60px 0;
+  }
+
+  .about-project__subtitle {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .about-project__text {
+    font-size: 11px;
+    line-height: 16px;
+    font-weight: 400;
+    margin: 16px 0 0 0;
+  }
+
+  .about-project__duration {
+    grid-template-columns: minmax(100px, 1fr) 4fr;
+    gap: 10px 0;
+  }
+  .about-project__duration-line {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .about-project__duration-name {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

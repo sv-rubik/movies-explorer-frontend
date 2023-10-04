@@ -1,0 +1,50 @@
+.promo {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.promo__container {
+  min-height: 524px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(../../../images/landing-logo.svg) no-repeat;
+  background-color: #DDDEE3;
+  background-position: center top 83px;
+}
+
+.promo__title {
+  max-width: 730px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -2px;
+  margin: 0;
+  padding-bottom: 39px;
+}
+
+@media screen and (max-width: 768px) {
+  .promo__container {
+    min-height: 784px;
+    background-position: center top 221px;
+  }
+  .promo__title {
+    max-width: 730px;
+    padding-bottom: 21px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .promo__container {
+    min-height: 570px;
+    background-image: url(../../../images/landing-logo-small.svg);
+    background-position: center top 140px;
+  }
+  .promo__title {
+    max-width: 300px;
+    font-size: 31px;
+    line-height: 39px;
+    padding-bottom: 42px;
+    letter-spacing: -1.5px;
+  }
+}
