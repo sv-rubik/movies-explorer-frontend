@@ -1,15 +1,25 @@
 import './MoviesCardList.css';
-import MovieCard from "./MoviesCard/MoviesCard";
-import { movies } from "../../utils/movies";
-import moviePic from '../../images/moviePic.png'; // Временная заглушка TODO movie.link
+import MoviesCard from "./MoviesCard/MoviesCard";
 import Preloader from '../Preloader/Preloader';
+import {beatfilmMoviesApiURL} from "../../utils/constants";
 
-function MoviesCardList({isLoading}) {
+function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies}) {
+
+  const movieImageURL = (movie) => movie.movieId ? movie.image : beatfilmMoviesApiURL + movie.image.url
 
   const generateMoviesList = () => {
     return movies.map((movie) => {
       return (
-        <MovieCard name={movie.nameRU} duration={movie.duration} link={moviePic} trailerLink={movie.trailerLink} />
+        <MoviesCard currentMovie={movie}
+                    name={movie.nameRU}
+                    duration={movie.duration}
+                    link={movieImageURL(movie)}
+                    trailerLink={movie.trailerLink}
+                    key={movie.id || movie.movieId}
+                    onLike={onLike}
+                    onDelete={onDelete}
+                    savedMovies={savedMovies}
+        />
       );
     });
   };

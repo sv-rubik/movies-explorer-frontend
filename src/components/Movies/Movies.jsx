@@ -1,14 +1,13 @@
 import './Movies.css';
-import {useState} from "react";
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({isLoading}) {
+function Movies({ movies, isLoading, onLike, savedMovies }) {
 
   return (
     <>
       <SearchForm />
-      <MoviesCardList isLoading={isLoading}/>
+      <MoviesCardList isLoading={isLoading} movies={movies} onLike={onLike} savedMovies={savedMovies}/>
     </>
   );
 };

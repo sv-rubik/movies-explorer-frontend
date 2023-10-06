@@ -2,12 +2,12 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function SavedMovies({isLoading}) {
+function SavedMovies({ isLoading, savedMovies, onDelete }) {
 
   return (
     <>
       <SearchForm />
-      <MoviesCardList isLoading={isLoading}/>
+      <MoviesCardList isLoading={isLoading} movies={savedMovies} onDelete={onDelete}/>
     </>
   );
 };
