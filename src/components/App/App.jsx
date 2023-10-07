@@ -20,11 +20,11 @@ import {beatfilmMoviesApiURL} from "../../utils/constants";
 
 // <BrowserRouter> imported in index.js
 function App() {
+  const location = useLocation(); // Получаем текущий маршрут
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // TODO
-  const location = useLocation(); // Получаем текущий маршрут
-  const navigate = useNavigate();
   const [movies, setMovies] = useState([])
   const [savedMovies, setSavedMovies] = useState([]);
 
