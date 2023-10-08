@@ -20,7 +20,7 @@ export const WindowSizeProvider = ({ children }) => {
       resizeTimeoutRef.current = setTimeout(() => {
         setIsDesktop(window.innerWidth > 990);
         setIsTablet(window.innerWidth <= 990 && window.innerWidth > 750);
-      }, 100);
+      }, 10);
     };
 
     window.addEventListener("resize", handleResize);

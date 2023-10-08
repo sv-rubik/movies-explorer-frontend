@@ -1,11 +1,13 @@
 import './MoviesCardList.css';
 import { useState, useEffect, useCallback } from "react";
+import {useLocation} from "react-router-dom";
 import MoviesCard from './MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import {beatfilmMoviesApiURL} from '../../utils/constants';
 import { useWindowSize } from "../../contexts/WindowSizeContext";
 
-function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies}) {
+function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies, isMoviesFound}) {
+  const location = useLocation();
   const movieImageURL = (movie) => movie.movieId ? movie.image : beatfilmMoviesApiURL + movie.image.url
   const { isDesktop, isTablet } = useWindowSize();
 
@@ -40,6 +42,7 @@ function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies}) {
 
   const generateMoviesList = (numberOfMovies) => {
     const limitedMovies = movies.slice(0, numberOfMovies);
+
     return limitedMovies.map((movie) => {
       return (
         <MoviesCard currentMovie={movie}
@@ -61,12 +64,14 @@ function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies}) {
       <div className="movies__container">
         <ul className='movies__list'>
           {isLoading
-            ? <Preloader />
-            : generateMoviesList(numberOfMovies)}
+            ? (<Preloader />)
+            : (isMoviesFound)
+              ? (generateMoviesList(numberOfMovies))
+              : (<p className="movies__list-text">По вашему запросу ничего не найдено. Попробуйте еще раз.</p>)}
         </ul>
         <div className='movies__btn-container'>
           {
-            numberOfMovies < movies.length && (
+            numberOfMovies < movies.length && (location.pathname === '/movies') && (
               <button className="movies__btn-add" type='button' onClick={handleShowMore}>
                 Ещё
               </button>

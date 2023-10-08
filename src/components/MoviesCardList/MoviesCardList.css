@@ -20,6 +20,17 @@
   justify-items: stretch;
   padding: 0 0 30px;
   margin: 0 auto;
+  position: relative;
+}
+
+.movies__list-text {
+  font-size: 11px;
+  line-height: 12px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .movies__btn-container {

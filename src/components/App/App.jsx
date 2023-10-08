@@ -23,15 +23,12 @@ function App() {
   const location = useLocation(); // Получаем текущий маршрут
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // TODO
+  // Если JWT в куках, то при загрузке приложения (при монтировании App) делать запрос на /me, например.
+  // Пока запрос не завершится отображать лоадер вместо всего приложения (то есть до отображения роутов).
+  // Если запрос успешный, показать приложение, если нет, тоже показать, но тогда будет переход на страницу входа
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token')); // если без !!, то вернет null
   const [movies, setMovies] = useState([])
   const [savedMovies, setSavedMovies] = useState([]);
-
-  // TODO временный прелоадер
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 3000);
 
   // Existing token check to render correct path for earlier authorized user
   useEffect(() => {
@@ -39,7 +36,7 @@ function App() {
     if (existingToken) {
       authApi.checkToken(existingToken) //if jwt valid get response User obj with '_id' (jwt token) & 'email'
         .then(() => {
-          setIsLoggedIn(true)      // redirect to content
+          setIsLoggedIn(true);     // redirect to content
         })
         .catch((err) => {console.log(`There is an error in token verification, ${err}`)})
     }
@@ -85,8 +82,8 @@ function App() {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    // localStorage.clear();
+    // localStorage.removeItem('token')
+    localStorage.clear();
     setIsLoggedIn(false);
     // setCurrentUser({})
     setSavedMovies([])
@@ -144,10 +141,9 @@ function App() {
     mainApi.deleteMovie(movieId)
       .then(() => {
         setSavedMovies((movies) => movies.filter((movie) => movie._id !== movieId))
-      } )
+      })
       .catch((err) => {console.log("There is an error while deleting movie from favourites:", err) });
   };
-
 
 
   const shouldShowFooter = () => {
@@ -165,46 +161,47 @@ function App() {
     return location.pathname !== '/error';
   };
 
+  const appClassName = ['App'];
+  if (['/profile', '/signup', '/signin'].includes(location.pathname)) {appClassName.push('App_color-white')}
+
   return (
-    <div className="App">
+    <div className={appClassName.join(' ')}>
         <CurrentUserContext.Provider value={ currentUser }> {/*  value to provide from App to below components */}
           <WindowSizeProvider>
             {shouldShowHeaderFooter() && shouldShowHeader() && <Header isLoggedIn={isLoggedIn} />}
             <main className="main">
-              <Routes>
-                <Route path="/" element={<Main />} />
-                <Route path="/movies" element={
-                  <ProtectedRoute
-                  element={Movies}
-                  isLoading={isLoading}
-                  movies={movies}
-                  savedMovies={savedMovies}
-                  onLike={handleMovieLike}
-                  isLoggedIn={isLoggedIn} // necessary for ProtectedRoute
-                  />}
-                />
-                <Route path="/saved-movies" element={
-                  <ProtectedRoute
-                    element={SavedMovies}
-                    isLoading={isLoading}
-                    savedMovies={savedMovies}
-                    onDelete={handleDeleteMovie}
-                    isLoggedIn={isLoggedIn}
-                  />}
-                />
-                <Route path="/profile" element={
-                  <ProtectedRoute
-                    element={Profile}
-                    handleLogOut={handleLogout}
-                    onUpdateUser={handleProfileChange}
-                    isLoggedIn={isLoggedIn}
-                  />}
-                />
-                <Route path="/signin" element={<Login onLogin={handleLogin}/>} />
-                <Route path="/signup" element={<Register onRegister={handleRegister} />} />
-                <Route path="/error" element={<ErrorPage />} />
-                <Route path="*" element={<Navigate replace to="/error" />} />
-              </Routes>
+                <Routes>
+                  <Route path="/" element={<Main />} />
+                  <Route path="/movies" element={
+                    <ProtectedRoute
+                      element={Movies}
+                      movies={movies}
+                      savedMovies={savedMovies}
+                      onLike={handleMovieLike}
+                      isLoggedIn={isLoggedIn} // necessary for ProtectedRoute
+                    />}
+                  />
+                  <Route path="/saved-movies" element={
+                    <ProtectedRoute
+                      element={SavedMovies}
+                      savedMovies={savedMovies}
+                      onDelete={handleDeleteMovie}
+                      isLoggedIn={isLoggedIn}
+                    />}
+                  />
+                  <Route path="/profile" element={
+                    <ProtectedRoute
+                      element={Profile}
+                      handleLogOut={handleLogout}
+                      onUpdateUser={handleProfileChange}
+                      isLoggedIn={isLoggedIn}
+                    />}
+                  />
+                  <Route path="/signin" element={<Login onLogin={handleLogin}/>} />
+                  <Route path="/signup" element={<Register onRegister={handleRegister} />} />
+                  <Route path="/error" element={<ErrorPage />} />
+                  <Route path="*" element={<Navigate replace to="/error" />} />
+                </Routes>
             </main>
             {shouldShowHeaderFooter() && shouldShowFooter() && <Footer />}
           </WindowSizeProvider>

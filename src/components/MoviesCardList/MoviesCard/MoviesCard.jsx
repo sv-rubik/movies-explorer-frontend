@@ -6,6 +6,8 @@ function MoviesCard({name, duration, link, trailerLink, onLike, onDelete, curren
   const location = useLocation();
   const isLiked = savedMovies ? savedMovies.find((item) => item.movieId === currentMovie.id) : false;
 
+  // console.log(savedMovies)
+
   return (
     <li className="element" >
       <a href={trailerLink} target="_blank" rel="noreferrer">
