@@ -29,6 +29,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token')); // если без !!, то вернет null
   const [movies, setMovies] = useState([])
   const [savedMovies, setSavedMovies] = useState([]);
+  const [serverError, setServerError] = useState('');
+  const [isDataUpdated, setIsDataUpdated] = useState(false);
 
   // Existing token check to render correct path for earlier authorized user
   useEffect(() => {
@@ -51,7 +53,11 @@ function App() {
           setMovies(movies)
           setSavedMovies(savedMovies.filter((movie) => movie.owner === userData._id));
         })
-        .catch(err => console.log("There is an error me:", err))
+        .catch((err) => {
+          console.log(`There is an error:`, err);
+          setServerError(`Во время запроса произошла ошибка. Возможно, проблема с соединением или 
+            сервер недоступен. Подождите немного и попробуйте ещё раз: ${err}`);
+        })
     }
   }, [isLoggedIn])
 
@@ -62,7 +68,9 @@ function App() {
         navigate('/signin')
       })
       .catch((err) => {
-        console.log(`There is an error while registering, ${err}`)
+        console.log(`There is an error while registering, ${err}`);
+        // ошибку сервера в компонент Register
+        setServerError(`При регистрации произошла ошибка: ${err}`);
       })
   }
 
@@ -77,16 +85,16 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(`There is an error while logging in, ${err}`)
+        console.log(`There is an error while logging in, ${err}`);
+        setServerError(`При логине произошла ошибка: ${err}`);
       })
   }
 
   const handleLogout = () => {
-    // localStorage.removeItem('token')
     localStorage.clear();
     setIsLoggedIn(false);
-    // setCurrentUser({})
     setSavedMovies([])
+    setIsDataUpdated(false);
     navigate("/");
 
   };
@@ -98,9 +106,14 @@ function App() {
         email: profileInputsData.email,
       })
       .then((userDataFromServer) => {
-        setCurrentUser(userDataFromServer)
+        setCurrentUser(userDataFromServer);
+        setIsDataUpdated(true);
       })
-      .catch((err) => {console.log("There is an error while updating profile:", err) })
+      .catch((err) => {
+        console.log("There is an error while updating profile:", err);
+        setServerError(`При изменении профиля произошла ошибка: ${err}`);
+        setIsDataUpdated(false);
+      })
   }
 
   //////// Movies actions
@@ -145,6 +158,10 @@ function App() {
       .catch((err) => {console.log("There is an error while deleting movie from favourites:", err) });
   };
 
+  //////////////////////
+  const resetServerErrors = () => {
+    setServerError('')
+  };
 
   const shouldShowFooter = () => {
     // Если текущий маршрут равен profile, register, login, то не показываем Footer
@@ -178,6 +195,7 @@ function App() {
                       movies={movies}
                       savedMovies={savedMovies}
                       onLike={handleMovieLike}
+                      serverError={serverError}
                       isLoggedIn={isLoggedIn} // necessary for ProtectedRoute
                     />}
                   />
@@ -186,6 +204,7 @@ function App() {
                       element={SavedMovies}
                       savedMovies={savedMovies}
                       onDelete={handleDeleteMovie}
+                      serverError={serverError}
                       isLoggedIn={isLoggedIn}
                     />}
                   />
@@ -194,11 +213,16 @@ function App() {
                       element={Profile}
                       handleLogOut={handleLogout}
                       onUpdateUser={handleProfileChange}
+                      serverError={serverError}
+                      resetServerErrors={resetServerErrors}
+                      isDataUpdated={isDataUpdated}
                       isLoggedIn={isLoggedIn}
                     />}
                   />
-                  <Route path="/signin" element={<Login onLogin={handleLogin}/>} />
-                  <Route path="/signup" element={<Register onRegister={handleRegister} />} />
+                  <Route path="/signin" element={<Login onLogin={handleLogin} serverError={serverError}
+                                                        resetServerErrors={resetServerErrors}/>} />
+                  <Route path="/signup" element={<Register onRegister={handleRegister} serverError={serverError}
+                                                           resetServerErrors={resetServerErrors}/>} />
                   <Route path="/error" element={<ErrorPage />} />
                   <Route path="*" element={<Navigate replace to="/error" />} />
                 </Routes>

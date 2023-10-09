@@ -6,7 +6,7 @@ import Preloader from '../Preloader/Preloader';
 import {beatfilmMoviesApiURL} from '../../utils/constants';
 import { useWindowSize } from "../../contexts/WindowSizeContext";
 
-function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies, isMoviesFound}) {
+function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies, isMoviesFound, serverError}) {
   const location = useLocation();
   const movieImageURL = (movie) => movie.movieId ? movie.image : beatfilmMoviesApiURL + movie.image.url
   const { isDesktop, isTablet } = useWindowSize();
@@ -23,10 +23,17 @@ function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies, isMov
   }, [isDesktop, isTablet]);
   const [numberOfMovies, setNumberOfMovies] = useState(getVisibleMoviesCount);
 
-  // Слежение за изменением размера окна и => изменения кол-ва отображаемых фильмов
+  // Сброс кол-ва отображаемых карточек при новом поиске (изменении пропса movies) для страницы movies
+  // и слежение за изменением размера окна и => изменения кол-ва отображаемых фильмов
   useEffect(() => {
-    setNumberOfMovies(getVisibleMoviesCount());
-  }, [isDesktop, isTablet, getVisibleMoviesCount]);
+    if (location.pathname === '/saved-movies') {
+      // Показать все фильмы, если это страница saved-movies
+      setNumberOfMovies(movies.length);
+    } else {
+      // Иначе, показать фильмы в зависимости от разрешения экрана
+      setNumberOfMovies(getVisibleMoviesCount());
+    }
+  }, [isDesktop, isTablet, getVisibleMoviesCount, movies, location.pathname]);
 
   // Для кнопки Еще
   const handleShowMore = () => {
@@ -67,7 +74,9 @@ function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies, isMov
             ? (<Preloader />)
             : (isMoviesFound)
               ? (generateMoviesList(numberOfMovies))
-              : (<p className="movies__list-text">По вашему запросу ничего не найдено. Попробуйте еще раз.</p>)}
+              : (serverError)
+                ? (<p className="movies__list-text">{serverError}</p>)
+                : (<p className="movies__list-text">По вашему запросу ничего не найдено. Попробуйте еще раз.</p>)}
         </ul>
         <div className='movies__btn-container'>
           {

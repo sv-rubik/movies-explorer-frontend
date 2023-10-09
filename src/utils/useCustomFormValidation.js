@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
-const useCustomForm = () => {
-  const [formValues, setFormValues] = useState({});
+const useCustomFormValidation = () => {
+  const [formValues, setFormValues] = useState({name: '', email: '', password: ''});
   const [formErrors, setFormErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -21,7 +21,7 @@ const useCustomForm = () => {
     [setFormValues, setFormErrors, setIsFormValid]
   );
 
-  return { formValues, formErrors, isFormValid, handleFormChange, resetFormState };
+  return { formValues, formErrors, isFormValid, handleFormChange, resetFormState, setFormValues, setIsFormValid };
 };
 
-export default useCustomForm;
+export default useCustomFormValidation;

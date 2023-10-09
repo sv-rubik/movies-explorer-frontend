@@ -54,5 +54,4 @@ class AuthApi {
   }
 }
 
-////// TODO
-export const authApi = new AuthApi('http://api.sv-rubik-diploma.nomoredomainsrocks.ru')
+export const authApi = new AuthApi('https://api.sv-rubik-diploma.nomoredomainsrocks.ru')

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ movies, onLike, savedMovies }) {
+function Movies({ movies, onLike, savedMovies, serverError }) {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [searchString, setSearchString] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -41,9 +41,9 @@ function Movies({ movies, onLike, savedMovies }) {
     }
     setFilteredMovies(filteredQuery);
     filteredQuery.length > 0 ? setIsMoviesFound(true) : setIsMoviesFound(false)
-    setTimeout(() => {
+    // setTimeout(() => {
       setIsLoading(false);
-    }, 300)
+    // }, 300)
     localStorage.setItem('searchQueryForMoviesPageFiltered', JSON.stringify(filteredQuery));
   };
 
@@ -51,7 +51,7 @@ function Movies({ movies, onLike, savedMovies }) {
     <>
       <SearchForm searchQuery={searchString} onFilter={findMovies} />
       <MoviesCardList isLoading={isLoading} movies={filteredMovies} onLike={onLike} savedMovies={savedMovies}
-                      isMoviesFound={isMoviesFound}/>
+                      isMoviesFound={isMoviesFound} serverError={serverError}/>
     </>
   );
 };

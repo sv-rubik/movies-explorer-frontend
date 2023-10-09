@@ -76,7 +76,7 @@ class MainApi {
 
 ////// TODO
 export const mainApi = new MainApi({
-  baseUrl: 'http://api.sv-rubik-diploma.nomoredomainsrocks.ru/',
+  baseUrl: 'https://api.sv-rubik-diploma.nomoredomainsrocks.ru/',
   headers: {
     'Content-Type': 'application/json',
     authorization: `Bearer ${ localStorage.getItem('token') }`,
