@@ -65,6 +65,7 @@ function App() {
   function handleRegister (name, email, password) {
     authApi.register(name, email, password)
       .then(() => {
+        setIsLoggedIn(true)
         navigate('/movies')
       })
       .catch((err) => {
