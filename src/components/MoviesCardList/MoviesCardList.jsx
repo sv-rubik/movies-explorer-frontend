@@ -9,18 +9,20 @@ import { useWindowSize } from "../../contexts/WindowSizeContext";
 function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies, isMoviesFound, serverError}) {
   const location = useLocation();
   const movieImageURL = (movie) => movie.movieId ? movie.image : beatfilmMoviesApiURL + movie.image.url
-  const { isDesktop, isTablet } = useWindowSize();
+  const { isDesktop, isTablet, isMiddleSize } = useWindowSize();
 
   // useCallback, чтобы убрать предупреждение eslint. Ф-я не будет создаваться каждый раз при рендеринге.
   const getVisibleMoviesCount = useCallback(() => {
     if (isDesktop) {
       return 16; // При широком экране отображаем 16 шт
+    } else if (isMiddleSize) {
+      return 12; // При экране вне макета диплома отображаем 12 шт
     } else if (isTablet) {
       return 8; // При среднем экране отображаем 8 шт
     } else {
       return 5; // При узком экране отображаем 5 шт
     }
-  }, [isDesktop, isTablet]);
+  }, [isDesktop, isTablet, isMiddleSize]);
   const [numberOfMovies, setNumberOfMovies] = useState(getVisibleMoviesCount);
 
   // Сброс кол-ва отображаемых карточек при новом поиске (изменении пропса movies) для страницы movies
@@ -33,13 +35,15 @@ function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies, isMov
       // Иначе, показать фильмы в зависимости от разрешения экрана
       setNumberOfMovies(getVisibleMoviesCount());
     }
-  }, [isDesktop, isTablet, getVisibleMoviesCount, movies, location.pathname]);
+  }, [isDesktop, isTablet, isMiddleSize, getVisibleMoviesCount, movies, location.pathname]);
 
   // Для кнопки Еще
   const handleShowMore = () => {
     const showAnotherMoviesRow = () => {
       if (isDesktop) {
         return 4; // При широком экране добавляем 4 карточки
+      } else if(isMiddleSize) {
+        return 3; // При экране вне макета диплома добавляем 3 карточки
       } else {
         return 2; // При узком экране добавляем 2 карточки
       }

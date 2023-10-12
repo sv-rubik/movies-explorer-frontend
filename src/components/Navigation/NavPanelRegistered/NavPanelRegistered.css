@@ -62,7 +62,8 @@
   display: none;
 }
 
-@media screen and (max-width: 989px) {
+/*989*/
+@media screen and (max-width: 1279px) {
   .nav__links-list {
     min-height: 100vh;
     display: flex;

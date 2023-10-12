@@ -7,8 +7,9 @@ export const useWindowSize = () => {
 };
 
 export const WindowSizeProvider = ({ children }) => {
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 990);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1279);  // > 990
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 990 && window.innerWidth > 750);
+  const [isMiddleSize, setIsMiddleSize] = useState(window.innerWidth <= 1279 && window.innerWidth > 991);
 
   const resizeTimeoutRef = useRef(null);
 
@@ -18,9 +19,10 @@ export const WindowSizeProvider = ({ children }) => {
 
       // Задержка перед обновлением состояния после изменения размера окна.
       resizeTimeoutRef.current = setTimeout(() => {
-        setIsDesktop(window.innerWidth > 990);
+        setIsDesktop(window.innerWidth > 1279);  // > 990
         setIsTablet(window.innerWidth <= 990 && window.innerWidth > 750);
-      }, 10);
+        setIsMiddleSize(window.innerWidth <= 1279 && window.innerWidth > 991);
+      }, 5);
     };
 
     window.addEventListener("resize", handleResize);
@@ -31,7 +33,7 @@ export const WindowSizeProvider = ({ children }) => {
   }, []);
 
   return (
-    <WindowSizeContext.Provider value={{ isDesktop, isTablet }}>
+    <WindowSizeContext.Provider value={{ isDesktop, isTablet, isMiddleSize }}>
       {children}
     </WindowSizeContext.Provider>
   );
