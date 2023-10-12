@@ -65,7 +65,7 @@ function App() {
   function handleRegister (name, email, password) {
     authApi.register(name, email, password)
       .then(() => {
-        navigate('/signin')
+        navigate('/movies')
       })
       .catch((err) => {
         console.log(`There is an error while registering, ${err}`);
