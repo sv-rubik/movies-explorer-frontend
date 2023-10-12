@@ -219,10 +219,14 @@ function App() {
                       isLoggedIn={isLoggedIn}
                     />}
                   />
-                  <Route path="/signin" element={<Login onLogin={handleLogin} serverError={serverError}
-                                                        resetServerErrors={resetServerErrors}/>} />
-                  <Route path="/signup" element={<Register onRegister={handleRegister} serverError={serverError}
-                                                           resetServerErrors={resetServerErrors}/>} />
+                  {!isLoggedIn && (
+                    <Route path="/signin" element={<Login onLogin={handleLogin} serverError={serverError}
+                                                          resetServerErrors={resetServerErrors}/>} />
+                  )}
+                  {!isLoggedIn && (
+                    <Route path="/signup" element={<Register onRegister={handleRegister} serverError={serverError}
+                                                             resetServerErrors={resetServerErrors}/>} />
+                  )}
                   <Route path="/error" element={<ErrorPage />} />
                   <Route path="*" element={<Navigate replace to="/error" />} />
                 </Routes>
