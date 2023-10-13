@@ -42,7 +42,7 @@ function MoviesCardList({movies, isLoading, onLike, onDelete, savedMovies, isMov
     const showAnotherMoviesRow = () => {
       if (isDesktop) {
         return 4; // При широком экране добавляем 4 карточки
-      } else if(isMiddleSize) {
+      } else if (isMiddleSize) {
         return 3; // При экране вне макета диплома добавляем 3 карточки
       } else {
         return 2; // При узком экране добавляем 2 карточки

@@ -9,7 +9,7 @@ export const useWindowSize = () => {
 export const WindowSizeProvider = ({ children }) => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1279);  // > 990
   const [isTablet, setIsTablet] = useState(window.innerWidth <= 990 && window.innerWidth > 750);
-  const [isMiddleSize, setIsMiddleSize] = useState(window.innerWidth <= 1279 && window.innerWidth > 991);
+  const [isMiddleSize, setIsMiddleSize] = useState(window.innerWidth <= 1279 && window.innerWidth > 990);
 
   const resizeTimeoutRef = useRef(null);
 
@@ -21,8 +21,8 @@ export const WindowSizeProvider = ({ children }) => {
       resizeTimeoutRef.current = setTimeout(() => {
         setIsDesktop(window.innerWidth > 1279);  // > 990
         setIsTablet(window.innerWidth <= 990 && window.innerWidth > 750);
-        setIsMiddleSize(window.innerWidth <= 1279 && window.innerWidth > 991);
-      }, 5);
+        setIsMiddleSize(window.innerWidth <= 1279 && window.innerWidth > 990);
+      }, 1);
     };
 
     window.addEventListener("resize", handleResize);
