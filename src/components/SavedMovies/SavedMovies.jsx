@@ -2,6 +2,7 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from "react";
+import { shortMovieDuration } from '../../utils/constants'
 
 function SavedMovies({ savedMovies, onDelete, serverError }) {
   const [filteredMovies, setFilteredMovies] = useState(savedMovies);
@@ -25,7 +26,7 @@ function SavedMovies({ savedMovies, onDelete, serverError }) {
     }
     if (queryObject.isCheckboxChecked) {
       filteredQuery = filteredQuery.filter((movie) => {
-        return movie.duration <= 40;
+        return movie.duration <= shortMovieDuration;
       });
     }
     setFilteredMovies(filteredQuery);
