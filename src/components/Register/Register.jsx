@@ -4,7 +4,8 @@ import logo from "../../images/logo.svg";
 import useCustomFormValidation from '../../utils/useCustomFormValidation';
 import {EMAIL_REGEX} from "../../utils/constants";
 
-function Register({ onRegister, serverError, resetServerErrors }) {
+function Register({ onRegister, serverError, resetServerErrors, isSubmitting }) {
+
   const {
     formValues,
     handleFormChange,
@@ -16,7 +17,7 @@ function Register({ onRegister, serverError, resetServerErrors }) {
   const handleSubmitButton = (e) => {
     e.preventDefault();
     onRegister(formValues.name, formValues.email, formValues.password);
-    resetFormState(); // Сбросить форму после успешной отправки
+    // resetFormState(); // Сбросить форму после успешной отправки
   };
 
   useEffect(() => {
@@ -88,7 +89,7 @@ function Register({ onRegister, serverError, resetServerErrors }) {
           <button
             className="register__btn register__btn_save"
             type="submit"
-            disabled={!isFormValid}
+            disabled={!isFormValid || isSubmitting}
           >
             Зарегистрироваться
           </button>
