@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import useCustomFormValidation from '../../utils/useCustomFormValidation';
 import { EMAIL_REGEX } from '../../utils/constants'
 
-function Profile({ handleLogOut, onUpdateUser, serverError, resetServerErrors, isDataUpdated, isSubmitting }) {
+function Profile({ handleLogOut, onUpdateUser, serverError, resetServerErrors, isDataUpdated }) {
   const currentUser = useContext(CurrentUserContext)
   const [showBtnSave, setShowBtnSave] = useState(false);
   const [isInputChanged, setIsInputChanged] = useState(false);
@@ -81,7 +81,7 @@ function Profile({ handleLogOut, onUpdateUser, serverError, resetServerErrors, i
           {showBtnSave && (
             <>
               <button className="profile__btn profile__btn_save" type="submit"
-                      disabled={!isFormValid || !isInputChanged || isSubmitting}>
+                      disabled={!isFormValid || !isInputChanged}>
                 Сохранить
               </button>
               <button className="profile__btn profile__btn_exit" type="button" onClick={handleLogOut}>

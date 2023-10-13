@@ -31,7 +31,6 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [serverError, setServerError] = useState('');
   const [isDataUpdated, setIsDataUpdated] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // --
 
   // Existing token check to render correct path for earlier authorized user
   useEffect(() => {
@@ -63,18 +62,12 @@ function App() {
   }, [isLoggedIn])
 
   /////// Authorization
-  function handleRegister (name, email, password) {
-    setIsSubmitting(true); // --
-    authApi.register(name, email, password)
-      .then(() => {
-        setIsLoggedIn(true)
-        // После успешной отправки разблокировать поля формы и кнопку отправки --
-        setIsSubmitting(false);
-        navigate('/movies')
+  function handleRegister (formValues) {
+    authApi.register(formValues.name, formValues.email, formValues.password)
+      .then((res) => {
+        handleLogin(formValues.email, formValues.password)
       })
       .catch((err) => {
-        // В случае ошибки сервера разблокировать кнопку отправки --
-        setIsSubmitting(false);
         console.log(`There is an error while registering, ${err}`);
         // ошибку сервера в компонент Register
         setServerError(`При регистрации произошла ошибка: ${err}`);
@@ -82,11 +75,8 @@ function App() {
   }
 
   function handleLogin (email, password) {
-    setIsSubmitting(true); // --
     authApi.authorize(email, password)
       .then((res) => {
-        // После успешной отправки разблокировать поля формы и кнопку отправки --
-        setIsSubmitting(false);
         // received res object, which contains 'token'
         if (res.token) {
           localStorage.setItem('token', res.token) // save token in localstorage
@@ -95,8 +85,6 @@ function App() {
         }
       })
       .catch((err) => {
-        // В случае ошибки сервера разблокировать кнопку отправки --
-        setIsSubmitting(false);
         console.log(`There is an error while logging in, ${err}`);
         setServerError(`При логине произошла ошибка: ${err}`);
       })
@@ -112,21 +100,16 @@ function App() {
   };
 
   const handleProfileChange = (profileInputsData) => {
-    setIsSubmitting(true); // --
     mainApi.sendUserData(
       {
         name: profileInputsData.name,
         email: profileInputsData.email,
       })
       .then((userDataFromServer) => {
-        // После успешной отправки разблокировать поля формы и кнопку отправки --
-        setIsSubmitting(false);
         setCurrentUser(userDataFromServer);
         setIsDataUpdated(true);
       })
       .catch((err) => {
-        // В случае ошибки сервера разблокировать кнопку отправки --
-        setIsSubmitting(false);
         console.log("There is an error while updating profile:", err);
         setServerError(`При изменении профиля произошла ошибка: ${err}`);
         setIsDataUpdated(false);
@@ -234,16 +217,15 @@ function App() {
                       resetServerErrors={resetServerErrors}
                       isDataUpdated={isDataUpdated}
                       isLoggedIn={isLoggedIn}
-                      isSubmitting={isSubmitting}
                     />}
                   />
                   {!isLoggedIn && (
                     <Route path="/signin" element={<Login onLogin={handleLogin} serverError={serverError}
-                          resetServerErrors={resetServerErrors} isSubmitting={isSubmitting}/>} />
+                          resetServerErrors={resetServerErrors} />} />
                   )}
                   {!isLoggedIn && (
                     <Route path="/signup" element={<Register onRegister={handleRegister} serverError={serverError}
-                          resetServerErrors={resetServerErrors} isSubmitting={isSubmitting}/>} />
+                          resetServerErrors={resetServerErrors} isLoggedIn={isLoggedIn} />} />
                   )}
                   <Route path="/error" element={<ErrorPage />} />
                   <Route path="*" element={<Navigate replace to="/error" />} />

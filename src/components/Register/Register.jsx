@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import useCustomFormValidation from '../../utils/useCustomFormValidation';
 import {EMAIL_REGEX} from "../../utils/constants";
 
-function Register({ onRegister, serverError, resetServerErrors, isSubmitting }) {
+function Register({ onRegister, serverError, resetServerErrors, isLoggedIn }) {
+  const navigate = useNavigate();
 
   const {
     formValues,
@@ -16,13 +17,19 @@ function Register({ onRegister, serverError, resetServerErrors, isSubmitting }) 
 
   const handleSubmitButton = (e) => {
     e.preventDefault();
-    onRegister(formValues.name, formValues.email, formValues.password);
+    onRegister(formValues);
     // resetFormState(); // Сбросить форму после успешной отправки
   };
 
   useEffect(() => {
     resetServerErrors();
-  }, [])
+  }, [formValues]) /// TODO
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/movies');
+    }
+  }, [isLoggedIn]);
 
   return (
     <section className="register">
@@ -89,7 +96,7 @@ function Register({ onRegister, serverError, resetServerErrors, isSubmitting }) 
           <button
             className="register__btn register__btn_save"
             type="submit"
-            disabled={!isFormValid || isSubmitting}
+            disabled={!isFormValid}
           >
             Зарегистрироваться
           </button>

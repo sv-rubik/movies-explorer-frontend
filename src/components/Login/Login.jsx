@@ -5,7 +5,7 @@ import logo from "../../images/logo.svg";
 import useCustomFormValidation from '../../utils/useCustomFormValidation';
 import {EMAIL_REGEX} from "../../utils/constants";
 
-function Login({onLogin, serverError, resetServerErrors, isSubmitting}) {
+function Login({onLogin, serverError, resetServerErrors}) {
   const {
     formValues,
     handleFormChange,
@@ -22,7 +22,7 @@ function Login({onLogin, serverError, resetServerErrors, isSubmitting}) {
 
   useEffect(() => {
     resetServerErrors();
-  }, [])
+  }, [formValues])
 
   return (
     <section className="register">
@@ -63,7 +63,7 @@ function Login({onLogin, serverError, resetServerErrors, isSubmitting}) {
           </span>
 
             <button className="register__btn register__btn_save register__btn_login" type="submit"
-                    disabled={!isFormValid || isSubmitting}>
+                    disabled={!isFormValid}>
               Войти
             </button>
             <div className="register__bottom-container">
