@@ -14,12 +14,23 @@
 .movies__list {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit,270px);
+  grid-template-columns: repeat(4, 270px);  /* auto-fit */
   gap: 32px 20px;
   justify-content: center;
   justify-items: stretch;
   padding: 0 0 30px;
   margin: 0 auto;
+  position: relative;
+}
+
+.movies__list-text {
+  font-size: 11px;
+  line-height: 12px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .movies__btn-container {
@@ -49,6 +60,12 @@
 
 .movies__btn-add_inactive {
   visibility: hidden;
+}
+
+@media screen and (max-width: 1279px) {
+  .movies__list {
+    grid-template-columns: repeat(3, 270px);
+  }
 }
 
 @media screen and (max-width: 990px) {

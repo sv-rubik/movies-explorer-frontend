@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useRef } from "react";
 
 const WindowSizeContext = createContext();
 
@@ -7,11 +7,22 @@ export const useWindowSize = () => {
 };
 
 export const WindowSizeProvider = ({ children }) => {
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1279);  // > 990
+  const [isTablet, setIsTablet] = useState(window.innerWidth <= 990 && window.innerWidth > 750);
+  const [isMiddleSize, setIsMiddleSize] = useState(window.innerWidth <= 1279 && window.innerWidth > 990);
+
+  const resizeTimeoutRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsDesktop(window.innerWidth > 768);
+      clearTimeout(resizeTimeoutRef.current);
+
+      // Задержка перед обновлением состояния после изменения размера окна.
+      resizeTimeoutRef.current = setTimeout(() => {
+        setIsDesktop(window.innerWidth > 1279);  // > 990
+        setIsTablet(window.innerWidth <= 990 && window.innerWidth > 750);
+        setIsMiddleSize(window.innerWidth <= 1279 && window.innerWidth > 990);
+      }, 1);
     };
 
     window.addEventListener("resize", handleResize);
@@ -22,7 +33,7 @@ export const WindowSizeProvider = ({ children }) => {
   }, []);
 
   return (
-    <WindowSizeContext.Provider value={{ isDesktop }}>
+    <WindowSizeContext.Provider value={{ isDesktop, isTablet, isMiddleSize }}>
       {children}
     </WindowSizeContext.Provider>
   );

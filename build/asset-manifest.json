@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e54535e2.css",
+    "main.js": "/static/js/main.ea046532.js",
+    "static/media/Inter-Medium.woff": "/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
+    "static/media/Inter-Black.woff": "/static/media/Inter-Black.c6938660eec019fefd68.woff",
+    "static/media/Inter-Regular.woff": "/static/media/Inter-Regular.8c206db99195777c6769.woff",
+    "static/media/Inter-Medium.woff2": "/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
+    "static/media/Inter-Black.woff2": "/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
+    "static/media/Inter-Regular.woff2": "/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/student.png": "/static/media/student.b84eb0e1afe1f830c04f.png",
+    "static/media/landing-logo-small.svg": "/static/media/landing-logo-small.3e8af197650e524dc915.svg",
+    "static/media/landing-logo.svg": "/static/media/landing-logo.e7d24730dc6273c0d17b.svg",
+    "static/media/saved-inactive.svg": "/static/media/saved-inactive.4b54e0fc1997025c7ad9.svg",
+    "static/media/saved-active.svg": "/static/media/saved-active.26eac585fc651dd4eb92.svg",
+    "static/media/logo.svg": "/static/media/logo.a987037c930150de38bf556b65866b00.svg",
+    "static/media/find-grey.svg": "/static/media/find-grey.99702ce209c4faf68ea7.svg",
+    "index.html": "/index.html",
+    "static/media/delete-movie.svg": "/static/media/delete-movie.ba864669413fec7eae1e.svg",
+    "static/media/find.svg": "/static/media/find.8ecb6e5a05a61b52b36c20c207001f2a.svg",
+    "static/media/man-icon.svg": "/static/media/man-icon.f952058b477a512379c34793dbc530e2.svg",
+    "static/media/close-btn.svg": "/static/media/close-btn.601edaa5e6b29b040f5e.svg",
+    "static/media/burger-icon.svg": "/static/media/burger-icon.fdf57ee3c49efad33f55.svg",
+    "main.e54535e2.css.map": "/static/css/main.e54535e2.css.map",
+    "main.ea046532.js.map": "/static/js/main.ea046532.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e54535e2.css",
+    "static/js/main.ea046532.js"
+  ]
+}

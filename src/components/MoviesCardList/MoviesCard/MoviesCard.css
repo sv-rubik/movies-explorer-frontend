@@ -1,6 +1,6 @@
 .element {
   max-width: 270px;
-  max-height: 218px;
+  height: 218px;
   border-radius: 10px;
   background-color: #fff;
   line-height: 0;
@@ -10,6 +10,7 @@
 
 .element__image {
   width: 100%;
+  height: 69%;
   object-fit: cover;
   border-radius: 10px 10px 0 0;
   cursor: pointer;
@@ -20,6 +21,10 @@
   justify-content: space-between;
   align-items: flex-start;
   margin: 14px 12px;
+}
+
+.element__description-container {
+  max-width: 80%
 }
 
 .element__duration {
@@ -94,13 +99,21 @@
 @media screen and (max-width: 990px) {
   .element {
     max-width: 339px;
-    max-height: 257px;
+    height: 260px;
+  }
+
+  .element__image {
+    height: 75%;
   }
 }
 
 @media screen and (max-width: 750px) {
   .element {
     max-width: 300px;
-    max-height: 235px;
+    height: 235px;
+  }
+
+  .element__image {
+    height: 72%;
   }
 }
